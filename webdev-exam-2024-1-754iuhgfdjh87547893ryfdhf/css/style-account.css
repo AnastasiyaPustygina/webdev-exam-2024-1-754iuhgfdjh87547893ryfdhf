@@ -1,0 +1,478 @@
+* {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+
+            font-family: 'Montserrat';
+        }
+       .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            background-color: #f8f9fa;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .logo {
+            margin-left: 10px;
+            font-size: 24px;
+            font-weight: bold;
+            color: #003390;
+            font-family: 'Montagu Slab';
+        }
+        .img-logo{
+            width: 60px;
+            height: 60px;
+        }
+        .header-icons{
+            display: flex;
+            flex-direction: row;
+        }
+        .header-icons .icon {
+            margin-left: 10px;
+            color: #003390;
+            text-decoration: none;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+            margin-right: 10px;
+        }
+
+        .header-icons .ic-header{
+            width: 32px;
+            height: 32px;
+
+    margin-right: 5px;
+        }
+        #ic-basket:hover{
+            background-image: url("../img/ic_basket_full.svg");
+            background-size: 32px 32px;
+        }
+
+        #ic-catalog:hover{
+            background-image: url("../img/ic_catalog_full.svg");
+            background-size: 32px 32px;
+        }
+        #ic-basket{
+            background-image: url("../img/ic_basket.svg");
+            background-size: 32px 32px;
+        }
+
+        #ic-catalog{
+            background-image: url("../img/ic_catalog.svg");
+            background-size: 32px 32px;
+        }
+
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #f8f9fa;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        main {
+            flex: 1;
+            padding: 20px;
+
+        }
+        .footer {
+            text-align: center;
+            padding-top: 10px;
+            padding-inline: 10px;
+            background-color: #08204C;
+            color: #fff;
+        }
+
+        .footer-icons {
+            display: flex;
+            justify-content: space-around;
+            flex-direction: row;
+
+        }
+
+        .footer-icons .icon {
+            margin: 5px 5px;
+            color: #fff;
+            text-decoration: none;
+            font-size: 16px;
+        }
+
+        .footer-icons .icon img {
+            width: 28px;
+            height: 28px;
+            margin-bottom: 5px;
+            margin-top: 5px;
+        }
+
+        .footer .logo{
+            color: white;
+            margin: 0;
+        }
+        .footer-data{
+            margin-inline: 20px 20px;
+            margin-top: 10px;
+        }
+        
+
+        .flex-wrap{
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            text-align: center;
+        }
+        .subtext{
+            font-size: 20px;
+            opacity: 0.6;
+        }
+        .orders-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 20px;
+    align-items: center;
+    margin-top: 20px;
+}
+h2{
+    text-align: center;
+}
+.order-card {
+    background: #f9f9f9;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.4);
+    position: relative;
+    width: 70%;
+}
+input, textarea, #edit-form select {
+            width: 100%;
+            padding: 10px 15px;
+            border: 0px;
+            border-radius: 8px;
+            background-color: #E8E8E8;
+            font-family: 'Montserrat';
+            font-size: 16px;
+            color: black;
+            margin-bottom: 10px;
+        }
+.order-card h3 {
+    margin: 0;
+    font-size: 20px;
+}
+
+.order-card p {
+    margin: 5px 0;
+}
+
+.order-icons {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    display: flex;
+    gap: 20px;
+}
+.ic-see:hover{
+    content: url('../img/ic_see_full.png');
+    transform: scale(1.1);
+}
+.ic-edit:hover{
+    content: url('../img/ic_edit_full.png');
+    transform: scale(1.1);
+}
+
+.ic-delete:hover{
+    content: url('../img/ic_delete_full.png');
+    transform: scale(1.1);
+}
+.order-icons img {
+    width: 32px;
+    height: 32px;
+    cursor: pointer;
+}
+
+/* Общие стили модального окна */
+.modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #fff; /* Белый фон */
+    padding: 20px;
+    border-radius: 8px; /* Скругленные углы */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Тень */
+    z-index: 1000; /* Чтобы окно отображалось поверх всего */
+    width: 720px; /* Ширина окна */
+    display: none; /* Скрыто по умолчанию */
+}
+
+/* Когда модальное окно активно */
+.modal.show {
+    display: block;
+}
+
+/* Скрытое окно */
+.modal.hidden {
+    display: none;
+}
+
+/* Заголовок модального окна */
+.modal h2 {
+    margin-top: 0;
+    font-size: 20px;
+    font-weight: bold;
+    color: #333; /* Тёмный текст */
+}
+
+/* Кнопка закрытия окна */
+.modal .close-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    font-size: 32px;
+    font-weight: bold;
+    cursor: pointer;
+    color: #999;
+    width: 40px;
+    height: 40px;
+}
+
+/* Формы в модальном окне */
+.modal-content label {
+    display: block;
+    margin-top: 10px;
+    margin-bottom: 5px;
+    font-size: 14px;
+    color: #555; /* Серый цвет текста */
+}
+
+.modal-content input,
+.modal-content textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc; /* Серый контур */
+    border-radius: 4px;
+    font-size: 14px;
+    color: #333; /* Тёмный текст */
+    box-sizing: border-box;
+}
+
+.modal-content input:focus,
+.modal-content textarea:focus {
+    outline: none;
+    border-color: #007bff; /* Синий контур при фокусе */
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* Лёгкая подсветка */
+}
+
+/* Текстовые блоки для просмотра данных */
+.modal-content p {
+    padding: 8px 10px;
+    margin: 0 0 10px;
+    background-color: #f9f9f9; /* Светло-серый фон */
+    border: 1px solid #ddd; /* Тонкая граница */
+    border-radius: 4px;
+    font-size: 14px;
+    color: #333;
+}
+
+/* Кнопка отправки формы */
+.modal-content .modal-bt {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    background-color: #003390; /* Синий фон */
+    color: white; /* Белый текст */
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.modal-content .modal-bt:hover {
+    background-color:  #0949BD; /* Темнее при наведении */
+}
+
+.modal-content .modal-bt:disabled {
+    background-color: #ccc; /* Серый фон для неактивной кнопки */
+    cursor: not-allowed; /* Указатель "запрещено" */
+}
+.modal-buttons {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.modal-buttons button:hover {
+    background-color: #0056b3;
+}
+
+.modal-buttons button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+.shadow-main{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.3);
+    display: none;
+}
+.overlay-show{
+    display: block;
+    z-index: 999;
+}
+#delete-modal h2{
+    margin-bottom: 40px;
+}
+#delete-modal{
+    padding: 40px;
+    align-items: space-around;
+}
+#delete-modal .del-bt{
+    width: 40%;
+}
+/* Основные стили */
+body {
+    font-family: 'Montserrat', sans-serif;
+    background-color: #f8f9fa;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    margin: 0;
+}
+
+/* Адаптивные стили */
+
+/* --- Мобильные устройства: до 768px --- */
+@media (max-width: 768px) {
+    .header {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        padding: 15px;
+    }
+
+    .logo {
+        font-size: 20px;
+    }
+
+    .img-logo {
+        width: 50px;
+        height: 50px;
+    }
+
+    .header-icons {
+        flex-direction: row;
+        justify-content: center;
+        gap: 10px;
+        margin-top: 10px;
+    }
+
+    main {
+        padding: 10px;
+    }
+
+    .orders-container {
+        width: 100%;
+        padding: 10px;
+    }
+
+    .order-card {
+        width: 100%;
+        padding: 15px;
+        font-size: 14px;
+    }
+
+    .modal {
+        width: 90%;
+        padding: 15px;
+    }
+
+    .modal h2 {
+        font-size: 18px;
+    }
+
+    .modal-content label {
+        font-size: 14px;
+    }
+
+    input, textarea, #edit-form select {
+        font-size: 14px;
+        padding: 8px;
+    }
+
+    .footer {
+        text-align: center;
+        padding: 10px;
+        font-size: 12px;
+    }
+
+    .footer-icons {
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .footer-data p {
+        font-size: 12px;
+    }
+    .order-icons img {
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+}
+}
+
+/* --- Планшеты: 768px–1024px --- */
+@media (min-width: 768px) and (max-width: 1024px) {
+    .header {
+        padding: 15px 20px;
+    }
+
+    .logo {
+        font-size: 22px;
+    }
+
+    .img-logo {
+        width: 55px;
+        height: 55px;
+    }
+
+    .header-icons {
+        gap: 15px;
+    }
+
+    main {
+        padding: 15px;
+    }
+
+    .orders-container {
+        gap: 15px;
+    }
+
+    .order-card {
+        width: 85%;
+        font-size: 16px;
+    }
+
+    .modal {
+        width: 80%;
+    }
+
+    .modal-content label {
+        font-size: 16px;
+    }
+
+    .footer {
+        font-size: 14px;
+        padding: 15px;
+    }
+}

@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SIPI-WEB</title>
+    <link rel="stylesheet" href="css/style-catalog.css">
+    <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
+    <link href='https://fonts.googleapis.com/css?family=Montagu Slab' rel='stylesheet'>
+</head>
+<body>
+    <header class="header">
+        <div class="flex-wrap">
+        <img src="img/logo.png" class="img-logo">
+        <div class="logo">SIPI-WEB</div>
+    </div>
+    <div class="search-container">
+        <div class="search-bar-container">
+            <input type="text" placeholder="Поиск..." class="search-bar">
+            <div class="search-icon"></div>
+        </div>
+        <ul id="autocomplete-list" class="autocomplete-list"></ul>
+    </div>
+        <div class="header-icons">
+            <a href="cart.html#r" class="icon">
+                <div class="ic-header" id="ic-basket"></div>
+                <p class="ic-header-text">Корзина</p>
+            </a>
+            <a href="account.html#r" class="icon">
+                <div class="ic-header" id="ic-profile"></div>
+                <p class="ic-header-text">Профиль</p>
+            </a>
+            <div class="sidebar-toggle" id="sidebar-toggle">
+        <button class="sidebar-toggle">☰</button>
+        <p class="ic-header-text">Фильтры</p>
+    </div>
+        </div>
+        
+    </header>
+
+    <div id="notifications" class="notifications hidden"></div>
+
+    <div class="container">
+        <!-- Sidebar -->
+        <aside  id="sidebar" class="sidebar">
+
+        <button class="close-sidebar" id="close-sidebar">×</button>
+            <h3>Фильтры</h3>
+            <form id="filters">
+                <div class="filter-section">
+                    <h4>Категория</h4>
+                    <div id="categories"></div>
+                </div>
+                <div class="filter-section">
+                    <h4>Стоимость</h4>
+                    <label>От <input type="number" placeholder="0Р" id="price-from"></label>
+                    <label>До <input type="number" placeholder="100000Р" id="price-to"></label>
+                </div>
+                <div class="filter-section">
+                    <h4>Скидка</h4>
+                    <label><input type="checkbox" id="discount-only"> По скидке</label>
+                </div>
+                <button type="button" id="apply-filters">Применить</button>
+            </form>
+        </aside>
+
+        <main>
+            <div class="catalog-header">
+                <h2>Каталог</h2>
+                <select id="sort">
+                    <option value="">По умолчанию</option>
+                    <option value="price-increase">По возрастанию цены</option>
+                    <option value="rating-increase">По возрастанию рейтинга</option>
+                    <option value="price-decrease">По убыванию цены</option>
+                    <option value="rating-decrease">По убыванию рейтинга</option>
+                </select>
+            </div>
+            <div id="catalog" class="catalog"></div>
+            <button id="load-more" class="load-more">Загрузить ещё</button>
+        </main>
+    </div>
+
+    <footer class="footer">
+
+        <p class="logo">SIPI-WEB</p>
+        <div class="footer-icons">
+            <div class="footer-data">
+            <a href="#" class="icon">
+                <img src="img/telegram-icon.svg" alt="Telegram">
+                <p>@Nastya_pusty</p>
+            </a>
+        </div>
+        <div class="footer-data">
+            <a href="#" class="icon">
+                <img src="img/email-icon.svg" alt="Email">
+                <p>pustygina.nastya@yandex.ru</p>
+            </a>
+        </div>
+        <div class="footer-data">
+            <a href="#" class="icon">
+                <img src="img/phone-icon.svg" alt="Телефон">
+                <p>+79152093644</p>
+            </a>
+        </div>
+        </div>
+    </footer>
+
+<script src="js/catalog.js">
+    </script>
+
+</body>
+</html>

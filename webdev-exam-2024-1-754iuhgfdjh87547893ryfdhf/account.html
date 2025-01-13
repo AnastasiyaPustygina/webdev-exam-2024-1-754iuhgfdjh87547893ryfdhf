@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SIPI-WEB - Заказы</title>
+    <link rel="stylesheet" href="css/style-account.css">
+
+    <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
+    <link href='https://fonts.googleapis.com/css?family=Montagu Slab' rel='stylesheet'>
+</head>
+<body>
+    <header class="header">
+        <div class="flex-wrap">
+            <img src="img/logo.png" class="img-logo">
+            <div class="logo">SIPI-WEB</div>
+        </div>
+        <div class="header-icons">
+
+            <a href="catalog.html#r" class="icon">
+                <div class="ic-header" id="ic-catalog"></div>
+                <p class="ic-header-text">Каталог</p>
+            </a>
+            <a href="cart.html#r" class="icon">
+                <div class="ic-header" id="ic-basket"></div>
+                <p class="ic-header-text">Корзина</p>
+            </a>
+        </div>
+    </header>
+
+    <main>
+        <h2>Заказы</h2>
+        <div id="orders-container" class="orders-container"></div>
+        <div id="delete-modal" class="modal hidden">
+    <div class="modal-content">
+        <button class="close-button" onclick="closeDeleteModal()">×</button>
+        <h2>Вы уверены, что хотите удалить заказ?</h2>
+        <div class="modal-buttons">
+            <button class="modal-bt del-bt" onclick="confirmDelete()">Да</button>
+            <button class="modal-bt del-bt" onclick="closeDeleteModal()">Нет</button>
+        </div>
+    </div>
+</div>
+        <div id="edit-modal" class="modal hidden">
+    <div class="modal-content">
+        <button class="close-button" onclick="closeModal('edit-modal')">×</button>
+        <h2>Редактирование заказа</h2>
+        
+        <form id="edit-form">
+            <label for="full-name-edit">Введите ФИО</label>
+            <input type="text" id="full-name-edit" name="full_name" required>
+            
+            <label for="email-edit">Введите email</label>
+            <input type="email" id="email-edit" name="email" required>
+            
+            <label for="phone-edit">Введите телефон</label>
+            <input type="tel" id="phone-edit" name="phone" required>
+            
+            <label for="address-edit">Введите адрес доставки</label>
+            <input type="text" id="address-edit" name="delivery_address" required>
+            
+            <label for="delivery-date-edit">Введите дату доставки</label>
+            <input type="date" id="delivery-date-edit" name="delivery_date" required>
+            
+            <label for="time">Укажите время доставки</label>
+             <select id="delivery-time-edit">
+    <option value="08:00-12:00">08:00-12:00</option>
+    <option value="12:00-14:00">12:00-14:00</option>
+    <option value="14:00-18:00">14:00-18:00</option>
+    <option value="18:00-22:00">18:00-22:00</option>
+    </select>
+            <p>Доступное время доставки с 07:00 до 23:00</p>
+            
+            <label for="comment-edit">Введите комментарий</label>
+            <textarea id="comment-edit" name="comment"></textarea>
+            
+            <button type="submit" id="edit-submit-button" class="modal-bt">Сохранить изменения</button>
+        </form>
+    </div>
+
+</div>
+
+        <div id="modal-view" class="modal hidden">
+    <div class="modal-content">
+        <button class="close-button" onclick="closeModal('modal-view')">×</button>
+        <h3>Просмотр заказа</h3>
+        
+        <label for="full-name-view">ФИО</label>
+        <p id="full-name-view"></p>
+        
+        <label for="email-view">Email</label>
+        <p id="email-view"></p>
+        
+        <label for="phone-view">Телефон</label>
+        <p id="phone-view"></p>
+        
+        <label for="address-view">Адрес доставки</label>
+        <p id="address-view"></p>
+        
+        <label for="delivery-date-view">Дата доставки</label>
+        <p id="delivery-date-view"></p>
+        
+        <label for="delivery-time-view">Время доставки</label>
+        <p id="delivery-time-view"></p>
+        
+        <label for="comment-view">Комментарий</label>
+        <p id="comment-view"></p>
+    </div>
+</div>
+    <div class="shadow-main"></div>
+
+    </main>
+
+    <footer class="footer">
+        <p class="logo">SIPI-WEB</p>
+        <div class="footer-icons">
+            <div class="footer-data">
+                <a href="#" class="icon">
+                    <img src="img/telegram-icon.svg" alt="Telegram">
+                    <p>@Nastya_pusty</p>
+                </a>
+            </div>
+            <div class="footer-data">
+                <a href="#" class="icon">
+                    <img src="img/email-icon.svg" alt="Email">
+                    <p>pustygina.nastya@yandex.ru</p>
+                </a>
+            </div>
+            <div class="footer-data">
+                <a href="#" class="icon">
+                    <img src="img/phone-icon.svg" alt="Телефон">
+                    <p>+79152093644</p>
+                </a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/account.js">
+    </script>
+</body>
+</html>
