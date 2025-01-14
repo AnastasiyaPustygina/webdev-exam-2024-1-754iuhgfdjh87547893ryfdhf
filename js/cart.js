@@ -113,9 +113,12 @@ addToCartButtons.forEach(button => {
     });
     if (!response.ok) {
       console.error("Ошибка сервера:", response.status);
+
+        showNotification("Вы оформили заказ", "success");
       const errorText = await response.text(); // Попробуем получить текст ошибки
       console.error("Ответ сервера:", errorText);
-      alert("Ошибка при оформлении заказа!");
+      
+    showNotification("Ошибка при оформлении заказа", "error");
       return;
     }
 
@@ -124,8 +127,29 @@ addToCartButtons.forEach(button => {
     console.log("Успех:", data);
     localStorage.clear();
     window.location.href = 'https://webdev-exam-2024-1-754iuhgfdjh8754789.netlify.app/account#r';
+    localStorage.setItem("notification", JSON.stringify({
+    message: "Вы оформили заказ",
+    type: "success"
+}));
   } catch (error) {
     console.error("Ошибка:", error.message);
-    alert("Произошла ошибка при соединении с сервером.");
+    showNotification("Ошибка при оформлении заказа", "error");
   }
 });
+        function showNotification(message, type = "success") {
+    const notification = document.getElementById("notification");
+    notification.textContent = ""; 
+    notification.className = "notification"; 
+
+    // Задержка для сброса анимации (позволяет повторно запускать показ)
+    setTimeout(() => {
+        // Устанавливаем текст и класс типа
+        notification.textContent = message;
+        notification.className = `notification ${type} show`;
+
+        // Убираем уведомление через 5 секунд
+        setTimeout(() => {
+            notification.className = `notification ${type}`;
+        }, 5000);
+    }, 10);
+}

@@ -350,3 +350,20 @@ document.addEventListener('DOMContentLoaded', () => {
         sidebar.classList.remove('open');
     });
 });
+function showNotification(message, type = "success") {
+    const notification = document.getElementById("notification");
+    notification.textContent = ""; 
+    notification.className = "notification"; 
+
+    // Задержка для сброса анимации (позволяет повторно запускать показ)
+    setTimeout(() => {
+        // Устанавливаем текст и класс типа
+        notification.textContent = message;
+        notification.className = `notification ${type} show`;
+
+        // Убираем уведомление через 5 секунд
+        setTimeout(() => {
+            notification.className = `notification ${type}`;
+        }, 5000);
+    }, 10);
+    }

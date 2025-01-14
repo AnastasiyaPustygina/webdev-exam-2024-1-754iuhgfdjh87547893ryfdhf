@@ -6,6 +6,12 @@ let orders = [];
 
 // Функция загрузки данных
 async function fetchOrders() {
+    const notification = localStorage.getItem("notification");
+    if (notification) {
+        const { message, type } = JSON.parse(notification);
+        showNotification(message, type);
+        localStorage.removeItem("notification");
+    }
     try {
         const response = await fetch(API_URL);
         orders = await response.json();
@@ -138,12 +144,16 @@ async function submitEditForm(orderId) {
         if (response.ok) {
             // Закрываем модальное окно и перезагружаем заказы
             closeModal("edit-modal");
+            showNotification("Изменения сохранены успешно!", "success");
             fetchOrders();
         } else {
             console.error("Ошибка обновления заказа:", response.status, await response.text());
+            showNotification("Ошибка сохранения изменений.", "error");
         }
     } catch (error) {
         console.error("Ошибка при отправке данных:", error);
+        showNotification("Произошла ошибка при отправке данных!", "error");
+        closeModal("edit-modal");
     }
 }
 async function deleteOrder(orderId) {
@@ -182,10 +192,11 @@ async function confirmDelete() {
 
         if (response.ok) {
             await fetchOrders(); // Обновляем список заказов
+            showNotification("Удаление прошло успешно!", "success");
             closeDeleteModal(); // Закрываем окно удаления
         } else {
             console.error("Ошибка удаления заказа:", response.statusText);
-            alert("Не удалось удалить заказ. Попробуйте снова.");
+            showNotification("Произошла ошибка при удалении!", "error");
             closeDeleteModal();
         }
     } catch (error) {
@@ -193,4 +204,21 @@ async function confirmDelete() {
         alert("Ошибка сети. Проверьте подключение к интернету и повторите попытку.");
         closeDeleteModal();
     }
+}
+function showNotification(message, type = "success") {
+    const notification = document.getElementById("notification");
+    notification.textContent = ""; 
+    notification.className = "notification"; 
+
+    // Задержка для сброса анимации (позволяет повторно запускать показ)
+    setTimeout(() => {
+        // Устанавливаем текст и класс типа
+        notification.textContent = message;
+        notification.className = `notification ${type} show`;
+
+        // Убираем уведомление через 5 секунд
+        setTimeout(() => {
+            notification.className = `notification ${type}`;
+        }, 5000);
+    }, 10);
 }
