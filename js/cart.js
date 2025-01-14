@@ -123,7 +123,7 @@ addToCartButtons.forEach(button => {
     const data = await response.json();
     console.log("Успех:", data);
     localStorage.clear();
-    window.location.href = 'file:///C:/Users/Anastasia/Documents/GitHub/exam-web/catalog.html#r';
+    window.location.href = 'https://webdev-exam-2024-1-754iuhgfdjh8754789.netlify.app/account#r';
   } catch (error) {
     console.error("Ошибка:", error.message);
     alert("Произошла ошибка при соединении с сервером.");
