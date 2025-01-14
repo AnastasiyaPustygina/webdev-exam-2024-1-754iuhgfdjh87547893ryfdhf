@@ -1,46 +1,110 @@
-html, body{
-	width: 100%;
-	height: 100%;
-	font-family: 'Montserrat';
-	background-image: url("../img/bg_start.png");
-	background-position: top center;
-	}
-h1{
-	text-align: center;
-	color: white;
-	font-size: 64px;
+html, body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    font-family: 'Montserrat', sans-serif;
+    background-image: url("../img/bg_start.png");
+    background-position: center;
+    background-size: cover;
+    display: flex; /* Используем Flexbox */
+    justify-content: center; /* Горизонтальное выравнивание */
+    align-items: center; /* Вертикальное выравнивание */
 }
-p{
-	text-align: center;
-	color: white;
-	font-size: 32px;
+
+h1 {
+    color: white;
+    font-size: 64px;
+    margin: 0 0 20px 0; /* Отступы между элементами */
+    text-align: center;
 }
-.subtext{
-	opacity: 0.6;
+
+p {
+    color: white;
+    font-size: 32px;
+    margin: 0 0 20px 0; /* Отступы между элементами */
+    text-align: center;
 }
-button{
-	color: white;
-	border: 1px solid white;
-	border-radius: 8px;
-	width: 300px;
-	font-size: 18px;
-	height: 50px;
-	background: none;
-	cursor:pointer;
-    margin: 0 auto;
+
+.subtext {
+    opacity: 0.6;
+}
+
+button {
+    color: white;
+    border: 1px solid white;
+    border-radius: 8px;
+    width: 300px;
+    font-size: 18px;
+    height: 50px;
+    background: none;
+    cursor: pointer;
+    margin: 10px auto; /* Центровка кнопки */
     display: block;
 }
-button:hover{
-	background-color: white;
-	color: #003390;
+
+button:hover {
+    background-color: white;
+    color: #003390;
 }
-.center-content{
-	width: 50%;
-	height: 30%;
-	position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 100px;
-    left: 0;
-    margin: auto;
+
+.center-content {
+    text-align: center; /* Выравнивание текста внутри */
+    display: flex; /* Flexbox для внутреннего содержимого */
+    flex-direction: column; /* Расположить элементы вертикально */
+    align-items: center; /* Горизонтальное центрирование */
+    justify-content: center; /* Вертикальное центрирование */
+}
+/* Экран от 768px до 1200px (планшеты) */
+@media (min-width: 768px) and (max-width: 1199px) {
+	h1 {
+		font-size: 48px;
+	}
+	p {
+		font-size: 24px;
+	}
+	button {
+		width: 250px;
+		font-size: 16px;
+		height: 45px;
+	}
+	.center-content {
+		width: 60%;
+	}
+}
+
+/* Экран от 480px до 768px (мобильные устройства в горизонтальной ориентации) */
+@media (min-width: 480px) and (max-width: 767px) {
+	h1 {
+		font-size: 36px;
+	}
+	p {
+		font-size: 20px;
+	}
+	button {
+		width: 200px;
+		font-size: 14px;
+		height: 40px;
+	}
+	.center-content {
+		width: 80%;
+	}
+}
+
+/* Экран до 480px (мобильные устройства в вертикальной ориентации) */
+@media (max-width: 479px) {
+	h1 {
+		font-size: 28px;
+	}
+	p {
+		font-size: 16px;
+	}
+	button {
+		width: 180px;
+		font-size: 12px;
+		height: 35px;
+	}
+	.center-content {
+		width: 90%;
+	}
 }
