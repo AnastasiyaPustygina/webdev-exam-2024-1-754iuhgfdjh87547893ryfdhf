@@ -26,7 +26,7 @@ async function fetchOrders() {
 document.addEventListener("DOMContentLoaded", fetchOrders);
 
 const overlay = document.querySelector('.shadow-main');
-const API_URL_PUT = "http://api.std-900.ist.mospolytech.ru/exam-2024-1/api/orders/";
+const API_URL_PUT = "https://edu.std-900.ist.mospolytech.ru/exam-2024-1/api/orders";
 const modal = document.getElementById("modal-view");
 const modalForm = document.getElementById("modal-form-view");
 const editModal = document.getElementById("edit-modal");
