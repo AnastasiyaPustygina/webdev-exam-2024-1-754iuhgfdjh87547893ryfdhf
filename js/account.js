@@ -1,4 +1,4 @@
-const API_URL = "http://api.std-900.ist.mospolytech.ru/exam-2024-1/api/orders?api_key=7fab1c8b-edd2-4a44-a0b1-432da2a08de8";
+const API_URL = "https://edu.std-900.ist.mospolytech.ru/exam-2024-1/api/orders?api_key=7fab1c8b-edd2-4a44-a0b1-432da2a08de8";
 
 // Элемент контейнера для заказов
 const ordersContainer = document.getElementById("orders-container");

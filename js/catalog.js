@@ -1,5 +1,5 @@
 let allGoods = [];
-    const API_URL = 'http://api.std-900.ist.mospolytech.ru/exam-2024-1/api/goods?api_key=7fab1c8b-edd2-4a44-a0b1-432da2a08de8';
+    const API_URL = 'https://edu.std-900.ist.mospolytech.ru/exam-2024-1/api/goods?api_key=7fab1c8b-edd2-4a44-a0b1-432da2a08de8';
     const catalog = document.getElementById('catalog');
     const categoriesContainer = document.getElementById('categories');
     const loadMoreButton = document.getElementById('load-more');
@@ -135,7 +135,7 @@ function sortGoods(sortBy) {
 
     fetchGoods();
 async function fetchAutocompleteSuggestions(query) {
-    const autocompleteUrl = `http://api.std-900.ist.mospolytech.ru/exam-2024-1/api/autocomplete?query=${encodeURIComponent(query)}&api_key=7fab1c8b-edd2-4a44-a0b1-432da2a08de8`;
+    const autocompleteUrl = `https://edu.std-900.ist.mospolytech.ru/exam-2024-1/api/autocomplete?query=${encodeURIComponent(query)}&api_key=7fab1c8b-edd2-4a44-a0b1-432da2a08de8`;
 
     try {
         const response = await fetch(autocompleteUrl);
