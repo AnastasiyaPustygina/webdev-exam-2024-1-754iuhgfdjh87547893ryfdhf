@@ -1,10 +1,10 @@
 const API_URL = "https://edu.std-900.ist.mospolytech.ru/exam-2024-1/api/orders?api_key=7fab1c8b-edd2-4a44-a0b1-432da2a08de8";
 
-// Элемент контейнера для заказов
+
 const ordersContainer = document.getElementById("orders-container");
 let orders = [];
 
-// Функция загрузки данных
+
 async function fetchOrders() {
     const notification = localStorage.getItem("notification");
     if (notification) {
@@ -22,7 +22,7 @@ async function fetchOrders() {
     }
 }
 
-// Загружаем заказы при загрузке страницы
+
 document.addEventListener("DOMContentLoaded", fetchOrders);
 
 const overlay = document.querySelector('.shadow-main');
@@ -31,10 +31,10 @@ const modal = document.getElementById("modal-view");
 const modalForm = document.getElementById("modal-form-view");
 const editModal = document.getElementById("edit-modal");
 const editForm = document.getElementById("edit-form");
-// Функция отображения заказов
+
 function renderOrders(orders) {
     let count = 1;
-    ordersContainer.innerHTML = ""; // Очищаем контейнер
+    ordersContainer.innerHTML = "";
     orders.forEach((order) => {
         const orderCard = document.createElement("div");
         orderCard.className = "order-card";
@@ -69,14 +69,14 @@ function closeModal() {
     overlay.classList.add("hidden");
 }
 function viewOrder(id) {
-    const order = orders.find(o => o.id === id); // Найти заказ по id
+    const order = orders.find(o => o.id === id);
     if (!order) return;
 
-    // Показать модальное окно
+
     modal.classList.add("show");
     modal.classList.remove("hidden");
 
-    // Заполнить данные заказа
+
     document.getElementById("full-name-view").textContent = order.full_name || "";
     document.getElementById("email-view").textContent = order.email || "";
     document.getElementById("phone-view").textContent = order.phone || "";
@@ -85,7 +85,6 @@ function viewOrder(id) {
     document.getElementById("delivery-time-view").textContent = order.delivery_interval || "";
     document.getElementById("comment-view").textContent = order.comment || "";
 
-    // Показать затемнение
     overlay.classList.add("overlay-show");
     overlay.classList.remove("hidden");
 }
@@ -97,7 +96,7 @@ function editOrder(orderId) {
         return;
     }
 
-    // Заполняем форму редактирования текущими данными заказа
+
     document.getElementById("full-name-edit").value = order.full_name || "";
     document.getElementById("email-edit").value = order.email || "";
     document.getElementById("phone-edit").value = order.phone || "";
@@ -106,11 +105,10 @@ function editOrder(orderId) {
     document.getElementById("delivery-time-edit").value = order.delivery_interval || "";
     document.getElementById("comment-edit").value = order.comment || "";
 
-    // Показ модального окна редактирования
     overlay.classList.add('overlay-show');
     editModal.classList.add("show");
  editModal.classList.remove("hidden");
-    // Устанавливаем обработчик отправки формы
+
     editForm.onsubmit = (event) => {
         event.preventDefault();
         submitEditForm(orderId);

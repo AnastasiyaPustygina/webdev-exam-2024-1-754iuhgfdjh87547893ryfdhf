@@ -62,7 +62,7 @@ addToCartButtons.forEach(button => {
         }
         renderGoods();
         document.getElementById('submit_order').addEventListener('click', async () => {
-  // Получение данных из формы
+
   const fullName = document.getElementById('name').value.trim();
   const email = document.getElementById('email').value.trim();
   const phone = document.getElementById('phone').value.trim();
@@ -71,13 +71,12 @@ addToCartButtons.forEach(button => {
   const deliveryInterval = document.getElementById('delivery_interval').value;
   const comment = document.getElementById('comment').value.trim();
   
-  // Проверка обязательных полей
+
   if (!fullName || !email || !phone || !deliveryAddress || !deliveryDate || !deliveryInterval) {
     alert('Пожалуйста, заполните все обязательные поля.');
     return;
   }
-  
-  // Получение товаров из корзины
+
   const cart = JSON.parse(localStorage.getItem('cart')) || [];
   if (cart.length === 0) {
     alert('Корзина пуста. Добавьте товары в корзину перед оформлением заказа.');
@@ -87,7 +86,7 @@ addToCartButtons.forEach(button => {
   const goodIds = cart.map(product => parseInt(product.id, 10));
   const isSubscribe = document.getElementById('subscribe').checked;
   
-  // Формирование данных для отправки
+
   const orderData = {
     full_name: fullName,
     email: email,
@@ -108,21 +107,20 @@ addToCartButtons.forEach(button => {
             'Content-Type': 'application/json',
             'Accept': 'application/json'
         },
-      // mode: 'no-cors',
+
       body: JSON.stringify(orderData)
     });
     if (!response.ok) {
       console.error("Ошибка сервера:", response.status);
 
         showNotification("Вы оформили заказ", "success");
-      const errorText = await response.text(); // Попробуем получить текст ошибки
+      const errorText = await response.text();
       console.error("Ответ сервера:", errorText);
       
     showNotification("Ошибка при оформлении заказа", "error");
       return;
     }
 
-    // Если ответ успешен, пытаемся разобрать JSON
     const data = await response.json();
     console.log("Успех:", data);
     localStorage.clear();
@@ -141,7 +139,6 @@ addToCartButtons.forEach(button => {
     notification.textContent = ""; 
     notification.className = "notification"; 
 
-    // Задержка для сброса анимации (позволяет повторно запускать показ)
     setTimeout(() => {
         // Устанавливаем текст и класс типа
         notification.textContent = message;

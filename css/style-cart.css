@@ -315,30 +315,30 @@
     }
     
     .cart-items {
-        grid-template-columns: 1fr; /* По одной колонке */
-        gap: 10px; /* Уменьшенный отступ */
+        grid-template-columns: 1fr;
+        gap: 10px;
     }
 
     .checkout-form input,
     .checkout-form textarea,
     .checkout-form select {
         font-size: 14px;
-        padding: 8px; /* Уменьшенный внутренний отступ */
+        padding: 8px;
     }
 
     .checkout-form button {
-        width: 100%; /* Кнопка занимает всю ширину */
+        width: 100%;
         font-size: 16px;
     }
 
     .footer {
-        font-size: 14px; /* Меньший размер шрифта */
+        font-size: 14px;
         text-align: center;
         padding: 10px;
     }
 
     .footer-icons {
-        flex-direction: column; /* Элементы иконок в столбик */
+        flex-direction: column;
         align-items: center;
         gap: 15px;
     }

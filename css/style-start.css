@@ -7,22 +7,22 @@ html, body {
     background-image: url("../img/bg_start.png");
     background-position: center;
     background-size: cover;
-    display: flex; /* Используем Flexbox */
-    justify-content: center; /* Горизонтальное выравнивание */
-    align-items: center; /* Вертикальное выравнивание */
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 h1 {
     color: white;
     font-size: 64px;
-    margin: 0 0 20px 0; /* Отступы между элементами */
+    margin: 0 0 20px 0;
     text-align: center;
 }
 
 p {
     color: white;
     font-size: 32px;
-    margin: 0 0 20px 0; /* Отступы между элементами */
+    margin: 0 0 20px 0;
     text-align: center;
 }
 
@@ -39,7 +39,7 @@ button {
     height: 50px;
     background: none;
     cursor: pointer;
-    margin: 10px auto; /* Центровка кнопки */
+    margin: 10px auto;
     display: block;
 }
 
@@ -49,13 +49,13 @@ button:hover {
 }
 
 .center-content {
-    text-align: center; /* Выравнивание текста внутри */
-    display: flex; /* Flexbox для внутреннего содержимого */
-    flex-direction: column; /* Расположить элементы вертикально */
-    align-items: center; /* Горизонтальное центрирование */
-    justify-content: center; /* Вертикальное центрирование */
+    text-align: center; 
+    display: flex; 
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
-/* Экран от 768px до 1200px (планшеты) */
+
 @media (min-width: 768px) and (max-width: 1199px) {
 	h1 {
 		font-size: 48px;
@@ -73,7 +73,7 @@ button:hover {
 	}
 }
 
-/* Экран от 480px до 768px (мобильные устройства в горизонтальной ориентации) */
+
 @media (min-width: 480px) and (max-width: 767px) {
 	h1 {
 		font-size: 36px;
@@ -91,7 +91,7 @@ button:hover {
 	}
 }
 
-/* Экран до 480px (мобильные устройства в вертикальной ориентации) */
+
 @media (max-width: 479px) {
 	h1 {
 		font-size: 28px;

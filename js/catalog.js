@@ -29,7 +29,7 @@ sortSelect.addEventListener('change', (event) => {
 
 function sortGoods(sortBy) {
     console.log(goods)
-    // В зависимости от выбранной сортировки, применяем соответствующую сортировку
+
     if (sortBy === 'price-increase') {
     goods.sort((a, b) => {
         const priceA = a.discount_price || a.actual_price;
@@ -51,7 +51,7 @@ function sortGoods(sortBy) {
     displayedGoods = 0;
 
 
-    // После сортировки перерисовываем товары
+
     renderGoods();
 }
     function renderCategories() {
@@ -211,7 +211,7 @@ async function fetchAutocompleteSuggestions(query) {
         }
 
         try {
-            currentSuggestions = await fetchAutocompleteSuggestions(query); // Получаем данные с сервера
+            currentSuggestions = await fetchAutocompleteSuggestions(query); 
             renderSuggestions(currentSuggestions, query);
         } catch (error) {
             console.error('Ошибка при загрузке автодополнений:', error);
@@ -233,14 +233,14 @@ async function fetchAutocompleteSuggestions(query) {
             item.style.padding = '10px';
             item.style.cursor = 'pointer';
 
-            // Подсветка совпадений
+
             const regex = new RegExp(`(${query})`, 'i');
             item.innerHTML = suggestion.replace(regex, `<strong>$1</strong>`);
 
             item.addEventListener('click', () => {
                 searchInput.value = suggestion;
                 autoCompleteList.style.display = 'none';
-                fetchSearchResults(suggestion); // Отправляем запрос с выбранным значением
+                fetchSearchResults(suggestion);
             });
 
             autoCompleteList.appendChild(item);
@@ -286,7 +286,6 @@ async function fetchAutocompleteSuggestions(query) {
         items[currentIndex].style.color = 'white';
     }
 
-// Добавить обработчик события на изменение селектора
 
     async function fetchSearchResults(query) {
         if (!query) return;
@@ -330,7 +329,6 @@ async function fetchAutocompleteSuggestions(query) {
 
         catalog.appendChild(fragment);
     }
-    // Закрыть автодополнение при клике вне поля поиска
     document.addEventListener('click', (e) => {
         if (!searchInput.contains(e.target) && !autoCompleteList.contains(e.target)) {
             autoCompleteList.style.display = 'none';
@@ -354,14 +352,10 @@ function showNotification(message, type = "success") {
     const notification = document.getElementById("notification");
     notification.textContent = ""; 
     notification.className = "notification"; 
-
-    // Задержка для сброса анимации (позволяет повторно запускать показ)
     setTimeout(() => {
-        // Устанавливаем текст и класс типа
+
         notification.textContent = message;
         notification.className = `notification ${type} show`;
-
-        // Убираем уведомление через 5 секунд
         setTimeout(() => {
             notification.className = `notification ${type}`;
         }, 5000);

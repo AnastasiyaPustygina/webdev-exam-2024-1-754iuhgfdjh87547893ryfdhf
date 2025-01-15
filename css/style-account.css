@@ -192,37 +192,37 @@ input, textarea, #edit-form select {
     cursor: pointer;
 }
 
-/* Общие стили модального окна */
+
 .modal {
     position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background: #fff; /* Белый фон */
+    background: #fff;
     padding: 20px;
-    border-radius: 8px; /* Скругленные углы */
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Тень */
-    z-index: 1000; /* Чтобы окно отображалось поверх всего */
-    width: 720px; /* Ширина окна */
-    display: none; /* Скрыто по умолчанию */
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    width: 720px;
+    display: none;
 }
 
-/* Когда модальное окно активно */
+
 .modal.show {
     display: block;
 }
 
-/* Скрытое окно */
+
 .modal.hidden {
     display: none;
 }
 
-/* Заголовок модального окна */
+
 .modal h2 {
     margin-top: 0;
     font-size: 20px;
     font-weight: bold;
-    color: #333; /* Тёмный текст */
+    color: #333;
 }
 
 /* Кнопка закрытия окна */
@@ -240,13 +240,13 @@ input, textarea, #edit-form select {
     height: 40px;
 }
 
-/* Формы в модальном окне */
+
 .modal-content label {
     display: block;
     margin-top: 10px;
     margin-bottom: 5px;
     font-size: 14px;
-    color: #555; /* Серый цвет текста */
+    color: #555;
 }
 
 .modal-content input,
@@ -254,38 +254,38 @@ input, textarea, #edit-form select {
     width: 100%;
     padding: 10px;
     margin-bottom: 10px;
-    border: 1px solid #ccc; /* Серый контур */
+    border: 1px solid #ccc;
     border-radius: 4px;
     font-size: 14px;
-    color: #333; /* Тёмный текст */
+    color: #333;
     box-sizing: border-box;
 }
 
 .modal-content input:focus,
 .modal-content textarea:focus {
     outline: none;
-    border-color: #007bff; /* Синий контур при фокусе */
-    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* Лёгкая подсветка */
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
 }
 
-/* Текстовые блоки для просмотра данных */
+
 .modal-content p {
     padding: 8px 10px;
     margin: 0 0 10px;
-    background-color: #f9f9f9; /* Светло-серый фон */
-    border: 1px solid #ddd; /* Тонкая граница */
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
     border-radius: 4px;
     font-size: 14px;
     color: #333;
 }
 
-/* Кнопка отправки формы */
+
 .modal-content .modal-bt {
     display: block;
     width: 100%;
     padding: 10px;
-    background-color: #003390; /* Синий фон */
-    color: white; /* Белый текст */
+    background-color: #003390; 
+    color: white; 
     border: none;
     border-radius: 4px;
     font-size: 16px;
@@ -295,12 +295,12 @@ input, textarea, #edit-form select {
 }
 
 .modal-content .modal-bt:hover {
-    background-color:  #0949BD; /* Темнее при наведении */
+    background-color:  #0949BD;
 }
 
 .modal-content .modal-bt:disabled {
-    background-color: #ccc; /* Серый фон для неактивной кнопки */
-    cursor: not-allowed; /* Указатель "запрещено" */
+    background-color: #ccc; 
+    cursor: not-allowed; 
 }
 .modal-buttons {
     display: flex;
@@ -382,9 +382,7 @@ body {
     display: block;
     opacity: 1;
 }
-/* Адаптивные стили */
 
-/* --- Мобильные устройства: до 768px --- */
 @media (max-width: 768px) {
     .header {
         flex-direction: column;
@@ -464,7 +462,6 @@ body {
 }
 }
 
-/* --- Планшеты: 768px–1024px --- */
 @media (min-width: 768px) and (max-width: 1024px) {
     .header {
         padding: 15px 20px;

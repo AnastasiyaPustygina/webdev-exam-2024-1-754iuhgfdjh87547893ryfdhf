@@ -7,7 +7,7 @@ body {
     min-height: 100vh;
 }
 
-/* Header */
+
 header {
     background-color: #333;
     color: #fff;
@@ -35,7 +35,6 @@ header {
     color: white;
 }
 
-/* Notifications */
 #notifications {
     position: fixed;
     top: 10px;
@@ -44,7 +43,6 @@ header {
     display: none;
 }
 
-/* Sidebar */
 aside {
     width: 250px;
     padding: 20px;
@@ -63,7 +61,6 @@ aside button {
     cursor: pointer;
 }
 
-/* Catalog */
 #catalog {
     flex-grow: 1;
     padding: 20px;
@@ -81,7 +78,7 @@ aside button {
     text-align: center;
 }
 
-/* Footer */
+
 footer {
     background-color: #333;
     color: white;
@@ -90,7 +87,7 @@ footer {
     margin-top: auto;
 }
 
-/* Buttons */
+
 button {
     cursor: pointer;
 }
