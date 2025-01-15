@@ -68,14 +68,12 @@ function closeModal() {
     overlay.classList.remove("overlay-show");
     overlay.classList.add("hidden");
 }
-function viewOrder(id) {
+async function viewOrder(id) {
     const order = orders.find(o => o.id === id);
     if (!order) return;
 
-
     modal.classList.add("show");
     modal.classList.remove("hidden");
-
 
     document.getElementById("full-name-view").textContent = order.full_name || "";
     document.getElementById("email-view").textContent = order.email || "";
@@ -85,37 +83,40 @@ function viewOrder(id) {
     document.getElementById("delivery-time-view").textContent = order.delivery_interval || "";
     document.getElementById("comment-view").textContent = order.comment || "";
 
+    const goodsContainer = document.getElementById("goods-view");
+    goodsContainer.innerHTML = "Загрузка состава заказа...";
+
+    try {
+        // Получаем названия товаров по их ID
+        const goodsPromises = order.good_ids.map(id =>
+            fetch(`https://edu.std-900.ist.mospolytech.ru/exam-2024-1/api/goods/${id}?api_key=7fab1c8b-edd2-4a44-a0b1-432da2a08de8`)
+                .then(response => response.json())
+                .catch(err => {
+                    console.error("Ошибка получения информации о товаре:", err);
+                    return { name: "Неизвестный товар" };
+                })
+        );
+
+        const goods = await Promise.all(goodsPromises);
+
+        // Отображаем товары, обрезая название до 30 символов
+        goodsContainer.innerHTML = goods
+            .map(good => {
+                const name = good.name || "Неизвестный товар";
+                const shortName = name.length > 30 ? name.slice(0, 30) + "..." : name;
+                return `<li>${shortName}</li>`;
+            })
+            .join("");
+    } catch (error) {
+        console.error("Ошибка загрузки товаров:", error);
+        goodsContainer.innerHTML = "Не удалось загрузить состав заказа.";
+    }
+
     overlay.classList.add("overlay-show");
     overlay.classList.remove("hidden");
 }
-function editOrder(orderId) {
-    const order = orders.find(o => o.id === orderId);
-
-    if (!order) {
-        console.error("Заказ не найден:", orderId);
-        return;
-    }
 
 
-    document.getElementById("full-name-edit").value = order.full_name || "";
-    document.getElementById("email-edit").value = order.email || "";
-    document.getElementById("phone-edit").value = order.phone || "";
-    document.getElementById("address-edit").value = order.delivery_address || "";
-    document.getElementById("delivery-date-edit").value = order.delivery_date || "";
-    document.getElementById("delivery-time-edit").value = order.delivery_interval || "";
-    document.getElementById("comment-edit").value = order.comment || "";
-
-    overlay.classList.add('overlay-show');
-    editModal.classList.add("show");
- editModal.classList.remove("hidden");
-
-    editForm.onsubmit = (event) => {
-        event.preventDefault();
-        submitEditForm(orderId);
-    };
-}
-
-// Функция отправки формы редактирования
 async function submitEditForm(orderId) {
 
     const order = orders.find(o => o.id === orderId);
@@ -140,7 +141,7 @@ async function submitEditForm(orderId) {
         });
 
         if (response.ok) {
-            // Закрываем модальное окно и перезагружаем заказы
+            
             closeModal("edit-modal");
             showNotification("Изменения сохранены успешно!", "success");
             fetchOrders();
@@ -155,12 +156,12 @@ async function submitEditForm(orderId) {
     }
 }
 async function deleteOrder(orderId) {
-    confirmDeleteOrder(orderId); // Показать модальное окно подтверждения удаления
+    confirmDeleteOrder(orderId);
 }
 
-let orderIdToDelete = null; // Переменная для хранения ID заказа для удаления
+let orderIdToDelete = null; 
 
-// Функция показа модального окна для удаления
+
 function confirmDeleteOrder(orderId) {
     orderIdToDelete = orderId; // Запоминаем ID заказа
     const deleteModal = document.getElementById("delete-modal");
@@ -170,7 +171,7 @@ function confirmDeleteOrder(orderId) {
     overlay.classList.remove("hidden");
 }
 
-// Функция закрытия модального окна удаления
+
 function closeDeleteModal() {
     const deleteModal = document.getElementById("delete-modal");
     deleteModal.classList.remove("show");
@@ -179,7 +180,6 @@ function closeDeleteModal() {
     overlay.classList.add("hidden");
 }
 
-// Функция подтверждения удаления
 async function confirmDelete() {
     if (orderIdToDelete === null) return;
 
@@ -188,10 +188,9 @@ async function confirmDelete() {
             method: "DELETE",
         });
 
-        if (response.ok) {
-            await fetchOrders(); // Обновляем список заказов
+        if (response.ok) { 
             showNotification("Удаление прошло успешно!", "success");
-            closeDeleteModal(); // Закрываем окно удаления
+            closeDeleteModal(); 
         } else {
             console.error("Ошибка удаления заказа:", response.statusText);
             showNotification("Произошла ошибка при удалении!", "error");
@@ -208,13 +207,11 @@ function showNotification(message, type = "success") {
     notification.textContent = ""; 
     notification.className = "notification"; 
 
-    // Задержка для сброса анимации (позволяет повторно запускать показ)
     setTimeout(() => {
-        // Устанавливаем текст и класс типа
+
         notification.textContent = message;
         notification.className = `notification ${type} show`;
 
-        // Убираем уведомление через 5 секунд
         setTimeout(() => {
             notification.className = `notification ${type}`;
         }, 5000);
