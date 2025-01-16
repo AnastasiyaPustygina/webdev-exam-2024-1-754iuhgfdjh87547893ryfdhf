@@ -20,6 +20,10 @@
             color: #003390;
             font-family: 'Montagu Slab';
         }
+        #total-price p{
+            color: #ccc;
+            font-size: 18px;
+        }
         .img-logo{
             width: 60px;
             height: 60px;

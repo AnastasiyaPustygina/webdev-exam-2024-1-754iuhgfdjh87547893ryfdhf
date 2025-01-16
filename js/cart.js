@@ -100,7 +100,6 @@ addToCartButtons.forEach(button => {
   };
   console.log(orderData);
   try {
-    // Отправка POST-запроса
     const response = await fetch(API_URL + '/exam-2024-1/api/orders?api_key=' + API_KEY, {
       method: 'POST',
       headers: {
@@ -150,3 +149,76 @@ addToCartButtons.forEach(button => {
         }, 5000);
     }, 10);
 }
+
+function calculateDeliveryCost() {
+    const deliveryDateInput = document.getElementById('date');
+    const deliveryTimeInput = document.getElementById('delivery_interval');
+    
+    if (!deliveryDateInput || !deliveryTimeInput) return 200; // Базовая стоимость доставки
+    
+    const deliveryDate = new Date(deliveryDateInput.value);
+    const deliveryTime = deliveryTimeInput.value;
+
+    let deliveryCost = 200;
+
+    const dayOfWeek = deliveryDate.getDay();
+    const isWeekend = dayOfWeek === 0 || dayOfWeek === 6;
+
+    if (deliveryTime.startsWith('18:') && isWeekend) {
+        deliveryCost += 300; // Выходной день
+    } else if (deliveryTime.startsWith('18:')) {
+        deliveryCost += 200;
+    }
+
+    return deliveryCost;
+}
+
+function renderGoods() {
+    totalPrice = 0;
+    cart = JSON.parse(localStorage.getItem('cart')) || [];
+    const fragment = document.createDocumentFragment();
+    basket.innerHTML = '';
+    
+    cart.forEach(good => {
+        totalPrice += good.discount_price ? good.discount_price : good.actual_price;
+        const item = document.createElement('div');
+        item.className = 'cart-item';
+        item.innerHTML = `
+            <img src="${good.image_url}" alt="${good.name}">
+            <h3 class="nameOfItem">${good.name}</h3>
+            <div class="start-block">
+                ${good.discount_price ? `<span class="current-price">${good.discount_price} ₽</span> <span class="discount-price">${good.actual_price} ₽</span>` : `<span class="price">${good.actual_price} ₽</span>`}
+            </div>
+            <div class="flex-wrap">
+                <div class="rating">${good.rating}</div>
+                <img src="img/ic_rating.svg" id="img-rating">
+            </div>
+            <button class="bt-remove">Удалить</button>
+        `;
+        fragment.appendChild(item);
+    });
+
+    basket.appendChild(fragment);
+
+    if (cart.length === 0) {
+        const item = document.createElement('div');
+        item.innerHTML = `<p class="subtext">Корзина пуста!</p>`;
+        basket.appendChild(item);
+    }
+
+    const deliveryCost = calculateDeliveryCost();
+    const totalOrderPrice = totalPrice + deliveryCost;
+
+    document.getElementById('totalPrice').innerHTML = `
+        Итого: ${totalPrice}₽
+        <p>Доставка: ${deliveryCost}₽</p>
+        <p><strong>Общая стоимость: ${totalOrderPrice}₽</strong></p>
+    `;
+
+    setRemoveListener();
+}
+
+document.getElementById('date').addEventListener('change', renderGoods);
+document.getElementById('delivery_interval').addEventListener('change', renderGoods);
+
+renderGoods();

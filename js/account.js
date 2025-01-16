@@ -32,10 +32,30 @@ const modalForm = document.getElementById("modal-form-view");
 const editModal = document.getElementById("edit-modal");
 const editForm = document.getElementById("edit-form");
 
-function renderOrders(orders) {
+async function renderOrders(orders) {
     let count = 1;
     ordersContainer.innerHTML = "";
-    orders.forEach((order) => {
+    for (const order of orders) {
+        // Загрузка товаров
+        const goodsPromises = order.good_ids.map(id =>
+            fetch(`https://edu.std-900.ist.mospolytech.ru/exam-2024-1/api/goods/${id}?api_key=7fab1c8b-edd2-4a44-a0b1-432da2a08de8`)
+                .then(response => response.json())
+                .catch(err => {
+                    console.error("Ошибка получения информации о товаре:", err);
+                    return { actual_price: 0, discount_price: 0 };
+                })
+        );
+
+        const goods = await Promise.all(goodsPromises);
+
+        const goodsCost = goods.reduce((sum, good) => {
+            return sum + (good.discount_price || good.actual_price || 0);
+        }, 0);
+
+        const deliveryCost = calculateDeliveryCost(order.delivery_date, order.delivery_interval);
+
+        const orderCost = goodsCost + deliveryCost;
+
         const orderCard = document.createElement("div");
         orderCard.className = "order-card";
 
@@ -45,7 +65,7 @@ function renderOrders(orders) {
             <p>Адрес доставки: ${order.delivery_address}</p>
             <p>Дата доставки: ${order.delivery_date}</p>
             <p>Время доставки: ${order.delivery_interval}</p>
-            <p>Стоимость: ${order.good_ids.length * 1000} Р</p>
+            <p  id="order=order-cost-view">Стоимость: ${orderCost} Р (включая доставку: ${deliveryCost} Р)</p>
             <div class="order-icons">
                 <img src="img/ic_see.png" class="ic-see" title="Просмотр" onclick="viewOrder(${order.id})">
                 <img src="img/ic_edit.png" class="ic-edit" title="Редактировать" onclick="editOrder(${order.id})">
@@ -54,17 +74,41 @@ function renderOrders(orders) {
         `;
         count++;
 
-
         ordersContainer.appendChild(orderCard);
-})};
+    }
+}
+
+function editOrder(orderId) {
+    const order = orders.find(o => o.id === orderId);
+
+    if (!order) {
+        console.error("Заказ не найден:", orderId);
+        return;
+    }
+
+    document.getElementById("full-name-edit").value = order.full_name || "";
+    document.getElementById("email-edit").value = order.email || "";
+    document.getElementById("phone-edit").value = order.phone || "";
+    document.getElementById("address-edit").value = order.delivery_address || "";
+    document.getElementById("delivery-date-edit").value = order.delivery_date || "";
+    document.getElementById("delivery-time-edit").value = order.delivery_interval || "";
+    document.getElementById("comment-edit").value = order.comment || "";
+    overlay.classList.add('overlay-show');
+    editModal.classList.add("show");
+ editModal.classList.remove("hidden");
+    editForm.onsubmit = (event) => {
+        event.preventDefault();
+        submitEditForm(orderId);
+    };
+}
+
 function closeModal() {
     modal.classList.remove("show");
 
     editModal.classList.remove("show");
     modal.classList.add("hidden");
     editModal.classList.add("hidden");
-    
-    // Скрыть затемнение
+
     overlay.classList.remove("overlay-show");
     overlay.classList.add("hidden");
 }
@@ -87,26 +131,32 @@ async function viewOrder(id) {
     goodsContainer.innerHTML = "Загрузка состава заказа...";
 
     try {
-        // Получаем названия товаров по их ID
         const goodsPromises = order.good_ids.map(id =>
             fetch(`https://edu.std-900.ist.mospolytech.ru/exam-2024-1/api/goods/${id}?api_key=7fab1c8b-edd2-4a44-a0b1-432da2a08de8`)
                 .then(response => response.json())
                 .catch(err => {
                     console.error("Ошибка получения информации о товаре:", err);
-                    return { name: "Неизвестный товар" };
+                    return { name: "Неизвестный товар", discount_price: 0, actual_price: 0 };
                 })
         );
 
         const goods = await Promise.all(goodsPromises);
 
-        // Отображаем товары, обрезая название до 30 символов
         goodsContainer.innerHTML = goods
+            goodsContainer.innerHTML = goods
             .map(good => {
                 const name = good.name || "Неизвестный товар";
                 const shortName = name.length > 30 ? name.slice(0, 30) + "..." : name;
                 return `<li>${shortName}</li>`;
-            })
-            .join("");
+            });
+
+        const goodsCost = goods.reduce((sum, good) => {
+            return sum + (good.discount_price || good.actual_price || 0);
+        }, 0);
+
+        const deliveryCost = calculateDeliveryCost(order.delivery_date, order.delivery_interval);
+        const orderCost = goodsCost + deliveryCost;
+
     } catch (error) {
         console.error("Ошибка загрузки товаров:", error);
         goodsContainer.innerHTML = "Не удалось загрузить состав заказа.";
@@ -117,9 +167,8 @@ async function viewOrder(id) {
 }
 
 
-async function submitEditForm(orderId) {
 
-    const order = orders.find(o => o.id === orderId);
+async function submitEditForm(orderId) {
     const updatedOrder = {
         full_name: document.getElementById("full-name-edit").value,
         email: document.getElementById("email-edit").value,
@@ -131,6 +180,10 @@ async function submitEditForm(orderId) {
         subscribe: orders.find(o => o.id === orderId).subscribe,
     };
 
+    const deliveryCost = calculateDeliveryCost(updatedOrder.delivery_date, updatedOrder.delivery_interval);
+
+    console.log(`Обновлённая стоимость доставки: ${deliveryCost} Р`);
+
     try {
         const response = await fetch(`${API_URL_PUT}${orderId}?api_key=7fab1c8b-edd2-4a44-a0b1-432da2a08de8`, {
             method: "PUT",
@@ -141,7 +194,6 @@ async function submitEditForm(orderId) {
         });
 
         if (response.ok) {
-            
             closeModal("edit-modal");
             showNotification("Изменения сохранены успешно!", "success");
             fetchOrders();
@@ -155,6 +207,7 @@ async function submitEditForm(orderId) {
         closeModal("edit-modal");
     }
 }
+
 async function deleteOrder(orderId) {
     confirmDeleteOrder(orderId);
 }
@@ -190,6 +243,7 @@ async function confirmDelete() {
 
         if (response.ok) { 
             showNotification("Удаление прошло успешно!", "success");
+            fetchOrders();
             closeDeleteModal(); 
         } else {
             console.error("Ошибка удаления заказа:", response.statusText);
@@ -216,4 +270,17 @@ function showNotification(message, type = "success") {
             notification.className = `notification ${type}`;
         }, 5000);
     }, 10);
+}
+function calculateDeliveryCost(deliveryDate, deliveryTime) {
+    const date = new Date(deliveryDate);
+    const isWeekend = date.getDay() === 0 || date.getDay() === 6;
+    let cost = 200; // Базовая стоимость
+
+    if (isWeekend && deliveryTime.startsWith('18:')) {
+        cost += 300;
+    } else if (deliveryTime.startsWith('18:')) {
+        cost += 200;
+    }
+
+    return cost;
 }
