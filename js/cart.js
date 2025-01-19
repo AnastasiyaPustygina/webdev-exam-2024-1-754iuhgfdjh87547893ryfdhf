@@ -1,18 +1,18 @@
-        const API_URL = 'https://edu.std-900.ist.mospolytech.ru';
-        const  API_KEY = '7fab1c8b-edd2-4a44-a0b1-432da2a08de8';
-    let totalPrice = 0;
-            const basket = document.getElementById('cart-items');
-            let cart = JSON.parse(localStorage.getItem('cart')) || []; // Берем корзину из localStorage или создаем пустую
-            function renderGoods() {
-            totalPrice = 0;
-            cart = JSON.parse(localStorage.getItem('cart')) || [];
-            const fragment = document.createDocumentFragment();
-            basket.innerHTML = '';
-            cart.forEach(good => {
-                totalPrice += good.discount_price ? good.discount_price : good.actual_price;
-                const item = document.createElement('div');
-                item.className = 'cart-item';
-                item.innerHTML = `
+const API_URL = 'https://edu.std-900.ist.mospolytech.ru';
+const API_KEY = '7fab1c8b-edd2-4a44-a0b1-432da2a08de8';
+let totalPrice = 0;
+const basket = document.getElementById('cart-items');
+let cart = JSON.parse(localStorage.getItem('cart')) || []; // Берем корзину из localStorage или создаем пустую
+function renderGoods() {
+  totalPrice = 0;
+  cart = JSON.parse(localStorage.getItem('cart')) || [];
+  const fragment = document.createDocumentFragment();
+  basket.innerHTML = '';
+  cart.forEach(good => {
+    totalPrice += good.discount_price ? good.discount_price : good.actual_price;
+    const item = document.createElement('div');
+    item.className = 'cart-item';
+    item.innerHTML = `
                     <img src="${good.image_url}" alt="${good.name}">
                     <h3 class="nameOfItem">${good.name}</h3>
                     <div class="start-block">
@@ -25,43 +25,43 @@
                     </div>
                     <button class="bt-remove">Удалить</button>
                 `;
-                
-                fragment.appendChild(item);
-            });
 
-            basket.appendChild(fragment);
-            if(cart.length == 0){
-                const item = document.createElement('div');
-                item.innerHTML = `
+    fragment.appendChild(item);
+  });
+
+  basket.appendChild(fragment);
+  if (cart.length == 0) {
+    const item = document.createElement('div');
+    item.innerHTML = `
                 <p class="subtext">Корзина пуста!</p>
                 `;
 
-            basket.appendChild(item);
-            }
+    basket.appendChild(item);
+  }
 
-            document.getElementById('totalPrice').innerHTML = 'Итого: ' + totalPrice + '₽'
-            console.log(totalPrice);
-            setRemoveListener();
-        }
-        function setRemoveListener(){
-            const addToCartButtons = document.querySelectorAll('.bt-remove');
-addToCartButtons.forEach(button => {
-  button.addEventListener('click', () => {
-    const productElement = button.closest('.cart-item');
-    const product = cart.filter(g => g.name == productElement.querySelectorAll(".nameOfItem")[0].textContent)[0];
-    console.log("set remove");
-    removeGood(product);
+  document.getElementById('totalPrice').innerHTML = 'Итого: ' + totalPrice + '₽'
+  console.log(totalPrice);
+  setRemoveListener();
+}
+function setRemoveListener() {
+  const addToCartButtons = document.querySelectorAll('.bt-remove');
+  addToCartButtons.forEach(button => {
+    button.addEventListener('click', () => {
+      const productElement = button.closest('.cart-item');
+      const product = cart.filter(g => g.name == productElement.querySelectorAll(".nameOfItem")[0].textContent)[0];
+      console.log("set remove");
+      removeGood(product);
+    });
   });
-});
 
-        }
-        function removeGood(product){
-            cart = cart.filter(g => g.id != product.id);
-            localStorage.setItem('cart', JSON.stringify(cart));
-            renderGoods();
-        }
-        renderGoods();
-        document.getElementById('submit_order').addEventListener('click', async () => {
+}
+function removeGood(product) {
+  cart = cart.filter(g => g.id != product.id);
+  localStorage.setItem('cart', JSON.stringify(cart));
+  renderGoods();
+}
+renderGoods();
+document.getElementById('submit_order').addEventListener('click', async () => {
 
   const fullName = document.getElementById('name').value.trim();
   const email = document.getElementById('email').value.trim();
@@ -70,7 +70,7 @@ addToCartButtons.forEach(button => {
   const deliveryDate = document.getElementById('date').value;
   const deliveryInterval = document.getElementById('delivery_interval').value;
   const comment = document.getElementById('comment').value.trim();
-  
+
 
   if (!fullName || !email || !phone || !deliveryAddress || !deliveryDate || !deliveryInterval) {
     alert('Пожалуйста, заполните все обязательные поля.');
@@ -82,10 +82,10 @@ addToCartButtons.forEach(button => {
     alert('Корзина пуста. Добавьте товары в корзину перед оформлением заказа.');
     return;
   }
-  
+
   const goodIds = cart.map(product => parseInt(product.id, 10));
   const isSubscribe = document.getElementById('subscribe').checked;
-  
+
 
   const orderData = {
     full_name: fullName,
@@ -103,20 +103,20 @@ addToCartButtons.forEach(button => {
     const response = await fetch(API_URL + '/exam-2024-1/api/orders?api_key=' + API_KEY, {
       method: 'POST',
       headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json'
-        },
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
 
       body: JSON.stringify(orderData)
     });
     if (!response.ok) {
       console.error("Ошибка сервера:", response.status);
 
-        showNotification("Вы оформили заказ", "success");
+      showNotification("Вы оформили заказ", "success");
       const errorText = await response.text();
       console.error("Ответ сервера:", errorText);
-      
-    showNotification("Ошибка при оформлении заказа", "error");
+
+      showNotification("Ошибка при оформлении заказа", "error");
       return;
     }
 
@@ -125,65 +125,65 @@ addToCartButtons.forEach(button => {
     localStorage.clear();
     window.location.href = 'https://webdev-exam-2024-1-754iuhgfdjh8754789.netlify.app/account#r';
     localStorage.setItem("notification", JSON.stringify({
-    message: "Вы оформили заказ",
-    type: "success"
-}));
+      message: "Вы оформили заказ",
+      type: "success"
+    }));
   } catch (error) {
     console.error("Ошибка:", error.message);
     showNotification("Ошибка при оформлении заказа", "error");
   }
 });
-        function showNotification(message, type = "success") {
-    const notification = document.getElementById("notification");
-    notification.textContent = ""; 
-    notification.className = "notification"; 
+function showNotification(message, type = "success") {
+  const notification = document.getElementById("notification");
+  notification.textContent = "";
+  notification.className = "notification";
 
+  setTimeout(() => {
+    // Устанавливаем текст и класс типа
+    notification.textContent = message;
+    notification.className = `notification ${type} show`;
+
+    // Убираем уведомление через 5 секунд
     setTimeout(() => {
-        // Устанавливаем текст и класс типа
-        notification.textContent = message;
-        notification.className = `notification ${type} show`;
-
-        // Убираем уведомление через 5 секунд
-        setTimeout(() => {
-            notification.className = `notification ${type}`;
-        }, 5000);
-    }, 10);
+      notification.className = `notification ${type}`;
+    }, 5000);
+  }, 10);
 }
 
 function calculateDeliveryCost() {
-    const deliveryDateInput = document.getElementById('date');
-    const deliveryTimeInput = document.getElementById('delivery_interval');
-    
-    if (!deliveryDateInput || !deliveryTimeInput) return 200; // Базовая стоимость доставки
-    
-    const deliveryDate = new Date(deliveryDateInput.value);
-    const deliveryTime = deliveryTimeInput.value;
+  const deliveryDateInput = document.getElementById('date');
+  const deliveryTimeInput = document.getElementById('delivery_interval');
 
-    let deliveryCost = 200;
+  if (!deliveryDateInput || !deliveryTimeInput) return 200; // Базовая стоимость доставки
 
-    const dayOfWeek = deliveryDate.getDay();
-    const isWeekend = dayOfWeek === 0 || dayOfWeek === 6;
+  const deliveryDate = new Date(deliveryDateInput.value);
+  const deliveryTime = deliveryTimeInput.value;
 
-    if (deliveryTime.startsWith('18:') && isWeekend) {
-        deliveryCost += 300; // Выходной день
-    } else if (deliveryTime.startsWith('18:')) {
-        deliveryCost += 200;
-    }
+  let deliveryCost = 200;
 
-    return deliveryCost;
+  const dayOfWeek = deliveryDate.getDay();
+  const isWeekend = dayOfWeek === 0 || dayOfWeek === 6;
+
+  if (deliveryTime.startsWith('18:') && isWeekend) {
+    deliveryCost += 300; // Выходной день
+  } else if (deliveryTime.startsWith('18:')) {
+    deliveryCost += 200;
+  }
+
+  return deliveryCost;
 }
 
 function renderGoods() {
-    totalPrice = 0;
-    cart = JSON.parse(localStorage.getItem('cart')) || [];
-    const fragment = document.createDocumentFragment();
-    basket.innerHTML = '';
-    
-    cart.forEach(good => {
-        totalPrice += good.discount_price ? good.discount_price : good.actual_price;
-        const item = document.createElement('div');
-        item.className = 'cart-item';
-        item.innerHTML = `
+  totalPrice = 0;
+  cart = JSON.parse(localStorage.getItem('cart')) || [];
+  const fragment = document.createDocumentFragment();
+  basket.innerHTML = '';
+
+  cart.forEach(good => {
+    totalPrice += good.discount_price ? good.discount_price : good.actual_price;
+    const item = document.createElement('div');
+    item.className = 'cart-item';
+    item.innerHTML = `
             <img src="${good.image_url}" alt="${good.name}">
             <h3 class="nameOfItem">${good.name}</h3>
             <div class="start-block">
@@ -195,27 +195,27 @@ function renderGoods() {
             </div>
             <button class="bt-remove">Удалить</button>
         `;
-        fragment.appendChild(item);
-    });
+    fragment.appendChild(item);
+  });
 
-    basket.appendChild(fragment);
+  basket.appendChild(fragment);
 
-    if (cart.length === 0) {
-        const item = document.createElement('div');
-        item.innerHTML = `<p class="subtext">Корзина пуста!</p>`;
-        basket.appendChild(item);
-    }
+  if (cart.length === 0) {
+    const item = document.createElement('div');
+    item.innerHTML = `<p class="subtext">Корзина пуста!</p>`;
+    basket.appendChild(item);
+  }
 
-    const deliveryCost = calculateDeliveryCost();
-    const totalOrderPrice = totalPrice + deliveryCost;
+  const deliveryCost = calculateDeliveryCost();
+  const totalOrderPrice = totalPrice + deliveryCost;
 
-    document.getElementById('totalPrice').innerHTML = `
+  document.getElementById('totalPrice').innerHTML = `
         Итого: ${totalPrice}₽
         <p>Доставка: ${deliveryCost}₽</p>
         <p><strong>Общая стоимость: ${totalOrderPrice}₽</strong></p>
     `;
 
-    setRemoveListener();
+  setRemoveListener();
 }
 
 document.getElementById('date').addEventListener('change', renderGoods);
