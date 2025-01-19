@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,12 +10,13 @@
     <link rel="stylesheet" href="css/style-cart.css">
     <link href='https://fonts.googleapis.com/css?family=Montagu Slab' rel='stylesheet'>
 </head>
+
 <body>
     <header class="header">
         <div class="flex-wrap">
-        <img src="img/logo.png" class="img-logo">
-        <div class="logo">SIPI-WEB</div>
-    </div>
+            <img src="img/logo.png" class="img-logo">
+            <div class="logo">SIPI-WEB</div>
+        </div>
         <div class="header-icons">
             <a href="catalog.html#r" class="icon">
                 <div class="ic-header" id="ic-catalog"></div>
@@ -28,67 +30,68 @@
     </header>
     <div id="notification" class="notification"></div>
     <main>
-    <div class="container">
-        <div class="cart-header">Корзина</div>
-        <div class="cart-items" id="cart-items">
-            
+        <div class="container">
+            <div class="cart-header">Корзина</div>
+            <div class="cart-items" id="cart-items">
+
+            </div>
+            <div class="cart-summary" id="totalPrice">Итого: 0 ₽</div>
+
+            <div class="checkout-form">
+                <h2>Оформление заказа</h2>
+                <input type="text" id="name" placeholder="Введите ФИО">
+                <input type="email" id="email" placeholder="Введите email">
+                <input type="tel" id="phone" placeholder="Введите телефон">
+
+                <label>
+                    <input type="checkbox" id="subscribe"> Согласен на получение информации о скидках и акциях
+                </label>
+                <input type="text" id="address" placeholder="Введите адрес доставки">
+
+                <label for="date">Введите дату доставки</label>
+                <input type="date" id="date">
+
+                <label for="time">Укажите время доставки</label>
+                <select id="delivery_interval">
+                    <option value="08:00-12:00">08:00-12:00</option>
+                    <option value="12:00-14:00">12:00-14:00</option>
+                    <option value="14:00-18:00">14:00-18:00</option>
+                    <option value="18:00-22:00">18:00-22:00</option>
+                </select>
+
+                <textarea id="comment" rows="3" placeholder="Введите комментарий..."></textarea>
+
+                <button id="submit_order">Заказать</button>
+            </div>
         </div>
-        <div class="cart-summary" id="totalPrice">Итого: 0 ₽</div>
-
-        <div class="checkout-form">
-            <h2>Оформление заказа</h2>
-            <input type="text" id="name" placeholder="Введите ФИО">
-            <input type="email" id="email" placeholder="Введите email">
-            <input type="tel" id="phone" placeholder="Введите телефон">
-
-            <label>
-                <input type="checkbox" id="subscribe"> Согласен на получение информации о скидках и акциях
-            </label>
-            <input type="text" id="address" placeholder="Введите адрес доставки">
-
-            <label for="date">Введите дату доставки</label>
-            <input type="date" id="date">
-
-            <label for="time">Укажите время доставки</label>
-             <select id="delivery_interval">
-    <option value="08:00-12:00">08:00-12:00</option>
-    <option value="12:00-14:00">12:00-14:00</option>
-    <option value="14:00-18:00">14:00-18:00</option>
-    <option value="18:00-22:00">18:00-22:00</option>
-  </select>
-
-            <textarea id="comment" rows="3" placeholder="Введите комментарий..."></textarea>
-
-            <button id="submit_order">Заказать</button>
-        </div>
-    </div>
     </main>
     <footer class="footer">
 
         <p class="logo">SIPI-WEB</p>
         <div class="footer-icons">
             <div class="footer-data">
-            <a href="#" class="icon">
-                <img src="img/telegram-icon.svg" alt="Telegram">
-                <p>@Nastya_pusty</p>
-            </a>
-        </div>
-        <div class="footer-data">
-            <a href="#" class="icon">
-                <img src="img/email-icon.svg" alt="Email">
-                <p>pustygina.nastya@yandex.ru</p>
-            </a>
-        </div>
-        <div class="footer-data">
-            <a href="#" class="icon">
-                <img src="img/phone-icon.svg" alt="Телефон">
-                <p>+79152093644</p>
-            </a>
-        </div>
+                <a href="#" class="icon">
+                    <img src="img/telegram-icon.svg" alt="Telegram">
+                    <p>@Nastya_pusty</p>
+                </a>
+            </div>
+            <div class="footer-data">
+                <a href="#" class="icon">
+                    <img src="img/email-icon.svg" alt="Email">
+                    <p>pustygina.nastya@yandex.ru</p>
+                </a>
+            </div>
+            <div class="footer-data">
+                <a href="#" class="icon">
+                    <img src="img/phone-icon.svg" alt="Телефон">
+                    <p>+79152093644</p>
+                </a>
+            </div>
         </div>
     </footer>
 </body>
 <script src="js/cart.js">
 
 </script>
+
 </html>
