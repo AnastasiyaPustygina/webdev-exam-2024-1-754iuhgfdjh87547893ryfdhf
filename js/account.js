@@ -95,7 +95,7 @@ function editOrder(orderId) {
     document.getElementById("comment-edit").value = order.comment || "";
     overlay.classList.add('overlay-show');
     editModal.classList.add("show");
- editModal.classList.remove("hidden");
+    editModal.classList.remove("hidden");
     editForm.onsubmit = (event) => {
         event.preventDefault();
         submitEditForm(orderId);
@@ -143,7 +143,7 @@ async function viewOrder(id) {
         const goods = await Promise.all(goodsPromises);
 
         goodsContainer.innerHTML = goods
-            goodsContainer.innerHTML = goods
+        goodsContainer.innerHTML = goods
             .map(good => {
                 const name = good.name || "Неизвестный товар";
                 const shortName = name.length > 30 ? name.slice(0, 30) + "..." : name;
@@ -212,7 +212,7 @@ async function deleteOrder(orderId) {
     confirmDeleteOrder(orderId);
 }
 
-let orderIdToDelete = null; 
+let orderIdToDelete = null;
 
 
 function confirmDeleteOrder(orderId) {
@@ -241,10 +241,10 @@ async function confirmDelete() {
             method: "DELETE",
         });
 
-        if (response.ok) { 
+        if (response.ok) {
             showNotification("Удаление прошло успешно!", "success");
             fetchOrders();
-            closeDeleteModal(); 
+            closeDeleteModal();
         } else {
             console.error("Ошибка удаления заказа:", response.statusText);
             showNotification("Произошла ошибка при удалении!", "error");
@@ -258,8 +258,8 @@ async function confirmDelete() {
 }
 function showNotification(message, type = "success") {
     const notification = document.getElementById("notification");
-    notification.textContent = ""; 
-    notification.className = "notification"; 
+    notification.textContent = "";
+    notification.className = "notification";
 
     setTimeout(() => {
 
